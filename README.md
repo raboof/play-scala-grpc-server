@@ -1,4 +1,23 @@
-# play-scala-starter-example
+# play-scala-grpc-server
+
+Example project based on the starter to experiment with what
+integrating a GRPC server into a Play app based on akka-grpc
+could look like.
+
+Changes:
+
+* added a 'proto' folder for the protobuf definitions
+* added akka-grpc-plugin to the plugins and enabled it
+* added a proto file to app/protobuf
+* added some 'glue' (that hopefully can disappear or be generated?)
+* added a stub service implementation
+
+To do:
+* HTTP2, testing etc
+
+Depends on https://github.com/raboof/playframework/tree/akkaHttpHandler
+
+## play-scala-starter-example
 
 [<img src="https://img.shields.io/travis/playframework/play-scala-starter-example.svg"/>](https://travis-ci.org/playframework/play-scala-starter-example)
 
