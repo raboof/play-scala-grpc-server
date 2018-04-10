@@ -2,9 +2,6 @@
 
 ## Based on https://github.com/playframework/play-scala-tls-example/edit/2.5.x/play
 
-# Export the keystore password for use in ws.conf
-export KEY_PASSWORD=`cat scripts/secrets/password`
-
 # Turn on HTTPS, turn off HTTP.
 # This should be https://example.com:9443
 JVM_OPTIONS="$JVM_OPTIONS -Dhttp.port=disabled"
