@@ -17,6 +17,8 @@ To do:
 
 Depends on https://github.com/raboof/playframework/tree/akkaHttpHandler
 
+Starting: `sbt stage` and then `./ssl-play`
+
 ## play-scala-starter-example
 
 [<img src="https://img.shields.io/travis/playframework/play-scala-starter-example.svg"/>](https://travis-ci.org/playframework/play-scala-starter-example)
