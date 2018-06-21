@@ -5,9 +5,9 @@ import akka.stream.Materializer
 import io.grpc.examples.helloworld.{GreeterService, GreeterServiceHandler}
 import javax.inject._
 import play.api.mvc._
+import play.api.mvc.akkahttp.AkkaHttpHandler
 import play.api.routing.Router
 import play.api.routing.Router.Routes
-import play.core.server.akkahttp.AkkaHttpHandler
 
 import scala.concurrent.Future
 

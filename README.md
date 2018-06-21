@@ -15,8 +15,6 @@ Changes:
 To do:
 * HTTP2, testing etc
 
-Depends on https://github.com/raboof/playframework/tree/akkaHttpHandler
-
 Starting: `sbt stage` and then `./ssl-play`
 
 ## play-scala-starter-example
