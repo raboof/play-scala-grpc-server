@@ -13,7 +13,7 @@ import scala.concurrent.Future
 class GreeterServiceImpl @Inject()(implicit mat: Materializer) extends GreeterService {
   println(s"Got injected $mat")
 
-  override def sayHello(in: HelloRequest): Future[HelloReply] = Future.successful(HelloReply())
+  override def sayHello(in: HelloRequest): Future[HelloReply] = Future.successful(HelloReply(s"Hello, ${in.name}!"))
 
   override def itKeepsTalking(in: Source[HelloRequest, NotUsed]): Future[HelloReply] = ???
 

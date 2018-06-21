@@ -15,7 +15,15 @@ Changes:
 To do:
 * HTTP2, testing etc
 
-Starting: `sbt stage` and then `./ssl-play`
+Starting:
+* `sbt stage`
+* Until [this pr](https://github.com/playframework/playframework/pull/8485) is released you may need to replace `target/universal/stage/jetty-alpn-agent/jetty-alpn-agent-2.0.6.jar` with [2.7.0](https://repo1.maven.org/maven2/org/mortbay/jetty/alpn/jetty-alpn-agent/2.0.7/jetty-alpn-agent-2.0.7.jar)
+*`./ssl-play run`
+
+Testing with [grpcc](https://github.com/njpatel/grpcc):
+* `keytool -export -alias playgeneratedtrusted -keystore generated.keystore -storepass "" -file playgeneratedtrusted.crt`
+* `openssl x509 -in playgeneratedtrusted.crt -out playgeneratedtrusted.pem -inform DER -outform PEM`
+* `grpcc -a localhost:9443 -p app/protobuf/helloworld.proto --eval 'client.sayHello({ name: "John" }, printReply)' --root_cert ./playgeneratedtrusted.pem`
 
 ## play-scala-starter-example
 
