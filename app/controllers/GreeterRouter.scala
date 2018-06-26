@@ -6,7 +6,7 @@ import io.grpc.examples.helloworld.{GreeterService, GreeterServiceHandler}
 import javax.inject._
 import play.api.mvc._
 import play.api.mvc.akkahttp.AkkaHttpHandler
-import play.api.routing.Router
+import play.api.routing.{Router, SimpleRouter}
 import play.api.routing.Router.Routes
 
 import scala.concurrent.Future
@@ -19,7 +19,7 @@ import scala.concurrent.Future
   */
 @Singleton
 class GreeterRouter @Inject()(cc: ControllerComponents, impl: GreeterServiceImpl)(implicit mat: Materializer)
-  extends Router {
+  extends SimpleRouter {
 
   val handler = new AkkaHttpHandler {
     val h = GreeterServiceHandler(impl)
@@ -27,9 +27,19 @@ class GreeterRouter @Inject()(cc: ControllerComponents, impl: GreeterServiceImpl
   }
 
   // could look at GreeterService.name, but isn't this already covered in the route file?
-  override def routes: Routes = { case _ ⇒ handler }
+  override def routes: Routes = {
 
-  override def documentation: Seq[(String, String, String)] = Seq.empty
+    case reqHeader ⇒
 
-  override def withPrefix(prefix: String): Router = this
+      println(s"""
+                  | in service 1
+                  | host: ${reqHeader.host}
+                  | path: ${reqHeader.path}
+                  | version: ${reqHeader.version}
+                  | -----------------------------------------
+                """.stripMargin)
+      handler
+
+  }
+
 }
