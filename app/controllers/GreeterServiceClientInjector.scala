@@ -12,7 +12,8 @@ class GreeterServiceClientInjector @Inject()(implicit sys: ActorSystem, mat: Mat
 
   override def get(): GreeterServiceClient = {
     implicit val ec: ExecutionContext = sys.dispatcher
-    // TODO read settings from the actorsystem configuration
+    // TODO get settings from the actorsystem configuration
+    // https://github.com/akka/akka-grpc/pull/254
     val settings: GrpcClientSettings = GrpcClientSettings("localhost", 8080)
     GreeterServiceClient(settings)
   }
