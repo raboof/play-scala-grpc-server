@@ -13,3 +13,4 @@ GET     /message                    controllers.AsyncController.message
 GET     /assets/*file               controllers.Assets.versioned(file)
 
 ->     /helloworld.GreeterService   io.grpc.examples.helloworld.GreeterServiceRouter
+->     /echo.EchoService     example.myapp.echo.grpc.EchoServiceRouter
