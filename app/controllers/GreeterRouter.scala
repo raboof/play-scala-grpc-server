@@ -2,7 +2,7 @@ package controllers
 
 import akka.http.scaladsl.model.{HttpRequest, HttpResponse}
 import akka.stream.Materializer
-import io.grpc.examples.helloworld.{GreeterService, GreeterServiceHandler}
+import io.grpc.examples.helloworld.{GreeterService, GreeterServiceClient, GreeterServiceHandler}
 import javax.inject._
 import play.api.mvc._
 import play.api.mvc.akkahttp.AkkaHttpHandler
@@ -18,7 +18,7 @@ import scala.concurrent.Future
   * Is there a nice place where we can ask the user to 'binder.bind(classOf[GreeterService]).to(classOf[GreeterServiceImpl])'?
   */
 @Singleton
-class GreeterRouter @Inject()(cc: ControllerComponents, impl: GreeterServiceImpl)(implicit mat: Materializer)
+class GreeterRouter @Inject()(cc: ControllerComponents, impl: GreeterServiceImpl, client: GreeterServiceClient)(implicit mat: Materializer)
   extends Router {
 
   val handler = new AkkaHttpHandler {
