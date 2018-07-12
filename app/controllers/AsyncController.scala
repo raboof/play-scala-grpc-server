@@ -1,8 +1,10 @@
 package controllers
 
 import javax.inject._
-
 import akka.actor.ActorSystem
+import akka.grpc.GrpcClientSettings
+import akka.stream.Materializer
+import io.grpc.examples.helloworld.{GreeterServiceClient, HelloRequest}
 import play.api.mvc._
 
 import scala.concurrent.duration._
@@ -24,7 +26,10 @@ import scala.concurrent.{ExecutionContext, Future, Promise}
  * a blocking API.
  */
 @Singleton
-class AsyncController @Inject()(cc: ControllerComponents, actorSystem: ActorSystem)(implicit exec: ExecutionContext) extends AbstractController(cc) {
+class AsyncController @Inject()(implicit cc: ControllerComponents, actorSystem: ActorSystem, mat: Materializer, exec: ExecutionContext) extends AbstractController(cc) {
+
+  // FIXME make this injectable somehow, with settings from config
+  val client = GreeterServiceClient(GrpcClientSettings("localhost", 9000))
 
   /**
    * Creates an Action that returns a plain text message after a delay
@@ -44,6 +49,12 @@ class AsyncController @Inject()(cc: ControllerComponents, actorSystem: ActorSyst
       promise.success("Hi!")
     }(actorSystem.dispatcher) // run scheduled tasks using the actor system's dispatcher
     promise.future
+  }
+
+
+  def callGrpc = Action.async {
+    client.sayHello(HelloRequest("Why, hello!"))
+      .map(reply => Ok(reply.message))
   }
 
 }
