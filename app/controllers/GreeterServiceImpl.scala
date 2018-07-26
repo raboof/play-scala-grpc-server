@@ -3,15 +3,14 @@ package controllers
 import akka.NotUsed
 import akka.stream.Materializer
 import akka.stream.scaladsl.Source
-import io.grpc.examples.helloworld.{HelloReply, HelloRequest}
+import io.grpc.examples.helloworld.{AbstractGreeterServiceRouter, HelloReply, HelloRequest}
 import javax.inject.{Inject, Singleton}
-import play.api.inject.Injector
 
 import scala.concurrent.Future
 
 /** Would be written by the user, with support for dependency injection etc */
 @Singleton
-class GreeterServiceController @Inject()(implicit mat: Materializer, injector: Injector) extends AbstractGreeterServiceController(injector) {
+class GreeterServiceImpl @Inject()(implicit mat: Materializer) extends AbstractGreeterServiceRouter(mat) {
 
   override def sayHello(in: HelloRequest): Future[HelloReply] = Future.successful(HelloReply(s"Hello, ${in.name}!"))
 

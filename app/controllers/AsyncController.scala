@@ -51,13 +51,5 @@ class AsyncController @Inject()(implicit cc: ControllerComponents, actorSystem: 
   }
 
 
-  def callGrpc = Action.async {
-    // FIXME make this injectable somehow, with settings from config
-    // FIXME this should work but for some reason the client seems to try to use TLS anyways
-    val client = GreeterServiceClient(GrpcClientSettings("localhost", 9000).withTls(false))
-
-    client.sayHello(HelloRequest("Why, hello!"))
-      .map(reply => Ok(reply.message))
-  }
 
 }

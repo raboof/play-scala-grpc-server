@@ -1,3 +1,5 @@
+import akka.grpc.gen.scaladsl.play.{PlayScalaClientCodeGenerator, PlayScalaServerCodeGenerator}
+
 version := "1.0-SNAPSHOT"
 
 lazy val root = (project in file("."))
@@ -19,3 +21,5 @@ libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2
 libraryDependencies += "com.h2database" % "h2" % "1.4.196"
 
 enablePlugins(AkkaGrpcPlugin)
+
+akkaGrpcExtraGenerators ++= Seq(PlayScalaClientCodeGenerator, PlayScalaServerCodeGenerator)
